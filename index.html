@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en" data-bs-theme="auto">
+
+<head lang="en">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="files/mystyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <meta name="theme-color" content="#198754">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>X's Personal Page!</title>
+</head>
+
+<body>
+    <script>
+        const htmlElement = document.querySelector("html");
+        if (htmlElement.getAttribute("data-bs-theme") === 'auto') {
+            function updateTheme() {
+                document.querySelector("html").setAttribute("data-bs-theme", window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
+            updateTheme();
+        }
+    </script>
+    <div id="greenRectangle"></div>
+    <div id="lightGreenRectangle"></div>
+    <embed src="files/resume.pdf" type="application/pdf" width="100%" height="100%" id="resumeView" style="display: none;"/>
+    <div id="resumeButtons" class="hide-important d-flex align-items-center justify-content-center gap-2">
+        <a href="files/resume.pdf" type="button" class="btn btn-dark d-flex align-items-center justify-content-center gap-2 p-3" id="resumeDownloadBtn">
+            <span class="material-symbols-outlined">
+                download
+            </span>
+            Download
+        </a>
+        <button type="button" class="btn btn-dark d-flex align-items-center justify-content-center gap-2 p-3" onclick="goBack()" id="resumeBackBtn">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+            Back
+        </button>
+    </div>
+    
+    <div id="loading" class="d-flex justify-content-center align-items-center gap-3">
+        Loading...
+        <div class="spinner-border text-success" role="status"></div>
+    </div>    
+
+    <span id="main">
+        <nav class="navbar sticky-top navbar-expand-md navbar-dark" style="z-index: 1">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">X's Personal Page!</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-none d-md-block" id="navbarToggler">
+                    <div class="navbar-nav ms-auto text-center">
+                        <a class="nav-link d-flex align-items-center justify-content-center" href="#top">
+                            <span class="material-symbols-outlined">
+                                home
+                            </span>
+                            Home
+                        </a>
+                        <a class="nav-link d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" href="files/resume.pdf">
+                            <span class="material-symbols-outlined">
+                                description
+                            </span>
+                            View PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="offcanvas offcanvas-end d-md-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" data-bs-theme="dark">
+            <div class="offcanvas-body d-flex align-items-center">
+                <ul class="navbar-nav justify-content-end align-items-start px-2">
+                    <li class="nav-item my-2">
+                        <a class="nav-link d-flex align-items-center justify-content-center" href="#top">
+                            <span class="material-symbols-outlined">
+                                home
+                            </span>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item my-2">
+                        <a class="nav-link d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" href="files/resume.pdf">
+                            <span class="material-symbols-outlined">
+                                description
+                            </span>
+                            View PDF
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        <br>
+        
+        <div class="container text-center">    
+            <div class="card card-text quote fade-in-second" style="background: none;">
+                <div class="card-body">
+                    <p class="card-text fst-italic">[placeholder]</p>
+                </div>
+            </div>
+        </div>
+        
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+        <div class="scroll-parent">
+            <div class="wave primary-anim"></div>
+            <div class="wave secondary-anim"></div>
+        </div>
+        <footer class="footer text-center py-4">
+            <div class="container-fluid text-center" data-bs-theme="dark">
+                <div class="row mt-2" style="padding-bottom: 8px;">
+                    <span class="text-muted">© Copyright <span id="currentYear"></span>. All rights reserved.</span>
+                </div>
+            </div>
+        </footer>
+        <div class="modal fade" id="safariModal" tabindex="-1" aria-labelledby="safariModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="safariModalLabel">Features may be limited</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This website works best with browsers like Chrome, Firefox, or Edge. Some features such as embedded PDF viewing may not be fully supported in Safari.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </span>
+
+    <script>
+        let viewportWidth = window.innerWidth;
+        let viewportHeight = window.innerHeight;
+        let viewportDiagonal = Math.sqrt(viewportWidth*viewportWidth + viewportHeight*viewportHeight);
+        const resumeView = document.getElementById('resumeView');
+        const mainView = document.getElementById('main');
+        const resumeButtons = document.getElementById('resumeButtons');
+        const greenRectangle = document.getElementById('greenRectangle');
+        const lightGreenRectangle = document.getElementById('lightGreenRectangle');
+        greenRectangle.style.setProperty('--viewport-diagonal', `${viewportDiagonal}px`);
+        lightGreenRectangle.style.setProperty('--viewport-diagonal', `${viewportDiagonal}px`);
+
+        document.querySelectorAll('.nav-link[href="files/resume.pdf"]').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                greenRectangle.style.backgroundColor='darkgreen';
+                lightGreenRectangle.style.backgroundColor='green';
+
+                greenRectangle.style.display = 'block';
+                greenRectangle.style.animation = 'slide 1.3s ease-in forwards';
+                setTimeout(function() {
+                    lightGreenRectangle.style.display = 'block';
+                    lightGreenRectangle.style.animation = 'slide 1.3s ease-in forwards';
+                }, 110);
+                setTimeout(function() {
+                    mainView.style.display = 'none';
+                    resumeView.style.display = 'block';
+                    resumeButtons.classList.remove('hide-important');
+                }, 1000);
+            });
+        });
+        function goBack() {
+            greenRectangle.style.backgroundColor='gray';
+            lightGreenRectangle.style.backgroundColor='darkgray';
+
+            greenRectangle.style.display = 'block';
+            greenRectangle.style.animation = 'slide_back 0.8s ease-in forwards';
+            setTimeout(function() {
+                lightGreenRectangle.style.display = 'block';
+                lightGreenRectangle.style.animation = 'slide_back 0.8s ease-in forwards';
+            }, 110);
+            setTimeout(function() {
+                mainView.style.display = 'block';
+                resumeView.style.display = 'none';
+                resumeButtons.classList.add('hide-important');
+            }, 520);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
+    <script>
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+        $(window).on("load", function() {
+            $('#loading').addClass('hide-important');
+            $('#main').css('display', 'block');
+        });
+        $(document).ready(function() {
+            if (isSafari()) {
+                $('#safariModal').modal('show');
+            }
+            $("body").swipe( {
+                swipeLeft:function(event, direction, distance, duration, fingerCount) {
+                    if ($('.navbar-toggler').is(':visible')) {
+                        if ($('#offcanvasNavbar').hasClass('show')) {
+                            $('#offcanvasNavbar').addClass('rubber_band_left');
+                        } else {
+                            $('#offcanvasNavbar').offcanvas('show');
+                        }
+                    }
+                },
+                threshold:100,
+                swipeRight:function(event, direction, distance, duration, fingerCount) {
+                    if ($('.navbar-toggler').is(':visible')) {
+                        $('#offcanvasNavbar').offcanvas('hide');
+                    }
+                },
+                threshold:100
+            }).click(function(event) {
+                var target = $(event.target);
+                if (!target.closest('#offcanvasNavbar').length && $('#offcanvasNavbar').hasClass('show')) {
+                    $('#offcanvasNavbar').offcanvas('hide');
+                }
+            });
+
+            $('#offcanvasNavbar').on('animationend', function() {
+                $(this).removeClass('rubber_band_left');
+            });
+
+            var options = { year: 'numeric' };
+            var currentYear = new Intl.DateTimeFormat('en-US', options).format(new Date());
+            document.getElementById("currentYear").textContent = currentYear;
+            if (currentYear === null || isNaN(currentYear)) {
+                currentYear = 2024;
+            }
+        });
+    </script>
+</body>
+
+</html>
